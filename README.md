@@ -8,6 +8,9 @@ https://www.tutorialspoint.com/flask/index.htm
 See info on python virtual environments here:
 https://sourabhbajaj.com/mac-setup/Python/virtualenv.html
 
+See HTTP Status Messages here:
+https://www.w3schools.com/tags/ref_httpmessages.asp
+
 Install virtualenv:
 ```
 pip install virtualenv
