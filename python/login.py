@@ -13,11 +13,16 @@ def success(name):
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
+        print(" - request method: {0}".format(request.method))
         user = request.form['name']
         return redirect(url_for('success', name=user))
-    else:
+    elif request.method == 'GET':
+        print(" - request method: {0}".format(request.method))
         user = request.args.get('name')
         return redirect(url_for('success', name=user))
+    else:
+        print("ERROR: The request method '{0}' is not supported.".format(request.method))
+        return
 
 if __name__ == '__main__':
     app.run(debug=True)
