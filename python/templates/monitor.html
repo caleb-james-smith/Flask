@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <body>
+        <table border = 1 style="background-color:#536267">
+            <tr style="background-color:#536267">
+                <th>FED</th>
+                <th>Code</th>
+                <th>Status</th>
+            </tr>
+            {% for key, value in result.items() %}
+                {% if value == 0 %}
+                    <tr style="background-color:#51b73b">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                        <td>OK</td>
+                    </tr>
+                {% else %}
+                    <tr style="background-color:#fc2647">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                        <td>ERROR</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </body>
+</html>
