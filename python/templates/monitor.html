@@ -4,20 +4,32 @@
         <table border = 1 style="background-color:#7d7f7c">
             <tr>
                 <th>FED</th>
-                <th>Code</th>
-                <th>Status</th>
+                <th>Time</th>
+                <th>Happy Counter</th>
+                <th>Sad Counter</th>
+                <th>Middle of the Road Counter</th>
+                <th>Status (with numbers)</th>
+                <th>Status (with words)</th>
             </tr>
-            {% for key, value in result.items() %}
-                {% if value == 0 %}
+            {% for fed in feds %}
+                {% if fed.status_code == 0 %}
                     <tr style="background-color:#51b73b">
-                        <td>{{key}}</td>
-                        <td>{{value}}</td>
+                        <td>{{fed.name}}</td>
+                        <td>{{fed.time}}</td>
+                        <td>{{fed.happy_counter}}</td>
+                        <td>{{fed.sad_counter}}</td>
+                        <td>{{fed.middle_of_the_road_counter}}</td>
+                        <td>{{fed.status_code}}</td>
                         <td>OK</td>
                     </tr>
                 {% else %}
                     <tr style="background-color:#fc2647">
-                        <td>{{key}}</td>
-                        <td>{{value}}</td>
+                        <td>{{fed.name}}</td>
+                        <td>{{fed.time}}</td>
+                        <td>{{fed.happy_counter}}</td>
+                        <td>{{fed.sad_counter}}</td>
+                        <td>{{fed.middle_of_the_road_counter}}</td>
+                        <td>{{fed.status_code}}</td>
                         <td>ERROR</td>
                     </tr>
                 {% endif %}
