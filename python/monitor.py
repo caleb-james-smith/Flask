@@ -1,5 +1,6 @@
 # monitor.py
 
+import json
 import datetime
 from flask import Flask, render_template
 
@@ -34,11 +35,33 @@ feds = [
     {"name" : "FED_1019", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
 ]
 
+# load data from input json file
+def load_data(input_file):
+    with open(input_file, "r") as f:
+        data = json.load(f)
+    return data
+
+# format data as a sorted list of dictionaries
+def format_data(input_data):
+    output_data = []
+    # sort keys: make sure to use list() so that sort() works!
+    keys = list(input_data.keys())
+    keys.sort()
+    for key in keys:
+        output_data.append(input_data[key])
+    return output_data
+
 # use html template with conditional statements and loops
 @app.route('/monitor')
 def result():
-    # example FED status codes
-    return render_template('monitor.html', feds=feds)
+    # input json file with data
+    input_file  = "data/fed_data.json"
+    # load data from json file
+    raw_data    = load_data(input_file)
+    # format data
+    cooked_data = format_data(raw_data)
+    
+    return render_template('monitor.html', feds=cooked_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
