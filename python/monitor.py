@@ -8,31 +8,31 @@ app = Flask(__name__)
 
 # Simple and basic example FED monitoring page.
 
-now = datetime.datetime.now()
-now_string = now.strftime('%Y-%m-%d %H:%M:%S')
+now         = datetime.datetime.now()
+time_stamp  = now.strftime('%Y-%m-%d %H:%M:%S')
 
-# data
+# example data
 feds = [
-    {"name" : "FED_1000", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1001", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1002", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1003", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1004", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
-    {"name" : "FED_1005", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
-    {"name" : "FED_1006", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1007", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1008", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1009", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1010", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1011", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
-    {"name" : "FED_1012", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1013", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1014", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1015", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1016", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1017", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
-    {"name" : "FED_1018", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
-    {"name" : "FED_1019", "time" : now_string, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1000", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1001", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1002", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1003", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1004", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
+    {"name" : "FED_1005", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
+    {"name" : "FED_1006", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1007", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1008", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1009", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1010", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1011", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
+    {"name" : "FED_1012", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1013", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1014", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1015", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1016", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1017", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 1},
+    {"name" : "FED_1018", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
+    {"name" : "FED_1019", "time" : time_stamp, "happy_counter" : 10, "sad_counter" : 0, "middle_of_the_road_counter" : 5, "status_code" : 0},
 ]
 
 # load data from input json file

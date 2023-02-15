@@ -1,20 +1,26 @@
 # write_data.py
 
-import tools
 import json
+import datetime
+import time
+import random
+import tools
 
-# create data
+# create data: return time stamp and data
 def create_data():
-    data = {}
+    data        = {}
     fed_numbers = list(range(1000, 1020))
+    # get current time
+    now         = datetime.datetime.now()
+    time_stamp  = now.strftime('%Y-%m-%d %H:%M:%S')
     for fed_num in fed_numbers:
         fed_name                    = "FED_{0:04}".format(fed_num)
         name                        = fed_name
-        time                        = 0
-        happy_counter               = 0
-        sad_counter                 = 0
-        middle_of_the_road_counter  = 0
-        status_code                 = 0
+        time                        = time_stamp
+        happy_counter               = random.randrange(100)
+        sad_counter                 = random.randrange(2)
+        middle_of_the_road_counter  = random.randrange(10)
+        status_code                 = random.randrange(2)
         data[fed_name] = {
             "name"                          : name,
             "time"                          : time,
@@ -23,11 +29,11 @@ def create_data():
             "middle_of_the_road_counter"    : middle_of_the_road_counter,
             "status_code"                   : status_code,
         }
-    return data
+    return time_stamp, data
 
 # write data to json file
-def write_data(data, output_file):
-    print("Writing data...")
+def write_data(time_stamp, data, output_file):
+    print("{0} | Writing data...".format(time_stamp))
     with open(output_file, "w") as f:
         json.dump(data, f, indent=4, sort_keys=True)
 
@@ -35,9 +41,22 @@ def write_data(data, output_file):
 def main():
     output_dir  = "data"
     output_file = "{0}/fed_data.json".format(output_dir)
-    fed_data    = create_data()
     tools.makeDir(output_dir)
-    write_data(fed_data, output_file)
+
+    # loop parameters
+    loop_forever    = True  # choose whether to loop
+    delay           = 1.0   # delay time in seconds
+    
+    if loop_forever:
+        # loop forever
+        while True:
+            time_stamp, fed_data = create_data()
+            write_data(time_stamp, fed_data, output_file)
+            time.sleep(delay)   # time delay
+    else:
+        # just write data once
+        time_stamp, fed_data = create_data()
+        write_data(time_stamp, fed_data, output_file)
 
 if __name__ == '__main__':
     main()
