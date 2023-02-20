@@ -24,6 +24,27 @@ def format_data(input_data):
         output_data.append(input_data[key])
     return output_data
 
+# count status codes
+def get_counts(input_data):
+    counts = {}
+    
+    n_total = 0
+    n_ok    = 0
+    n_error = 0
+    
+    for row in input_data:
+        n_total += 1
+        if row["status_code"] == 0:
+            n_ok += 1
+        else:
+            n_error += 1
+
+    counts["n_total"]   = n_total
+    counts["n_ok"]      = n_ok
+    counts["n_error"]   = n_error
+    
+    return counts
+
 # use html template with conditional statements and loops
 @app.route('/monitor')
 def result():
@@ -33,8 +54,10 @@ def result():
     raw_data    = load_data(input_file)
     # format data
     cooked_data = format_data(raw_data)
+    # get counts
+    fed_counts = get_counts(cooked_data)
     
-    return render_template('monitor.html', feds=cooked_data)
+    return render_template('monitor.html', fed_counts=fed_counts, fed_data=cooked_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
