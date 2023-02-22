@@ -6,10 +6,14 @@
                 <tr>
                     <th>{{key}}</th>
                     <td>{{value}}</td>
-                    {% if value > 70 %}
-                        <td>pass</td>
+                    {% if key == "Name" %}
+                        <td></td>
                     {% else %}
-                        <td>fail</td>
+                        {% if value >= 70 %}
+                            <td style="background-color:#21c918">Pass</td>
+                        {% else %}
+                            <td style="background-color:#fc3d3d">Fail</td>
+                        {% endif %}
                     {% endif %}
                 </tr>
             {% endfor %}
