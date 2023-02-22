@@ -26,7 +26,7 @@ def grade(score):
 # example: for loop in html
 @app.route('/result')
 def result():
-    scores = {'physics' : 100, 'chemistry' : 80, 'biology' : 60}
+    scores = {'physics' : 80, 'chemistry' : 70, 'biology' : 60}
     return render_template('result.html', result=scores)
 
 if __name__ == '__main__':
