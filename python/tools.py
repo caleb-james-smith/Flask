@@ -14,3 +14,10 @@ def load_data(input_file):
         data = json.load(f)
     return data
 
+# Print all keys in dictionary with depth
+def print_key_depth(input_dict, depth=1):
+    for key, value in input_dict.items():
+        print("depth {0}: {1}".format(depth, key))
+        if isinstance(value, dict):
+            print_key_depth(value, depth=depth+1)
+
