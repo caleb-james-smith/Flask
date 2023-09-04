@@ -8,6 +8,12 @@ app = Flask(__name__)
 
 # Display FED data from input json file.
 
+# print properties: keys and values
+def print_properties(input_data):
+    properties = input_data["table"]["properties"]
+    for key, value in properties.items(): 
+        print("{0}: {1}".format(key, value))
+
 # format data as a sorted list of dictionaries
 def format_data(input_data):
     output_data = []
@@ -43,12 +49,15 @@ def get_counts(input_data):
 @app.route('/display_fed_data')
 def result():
     # input json file with data
-    #input_file  = "data/fed_data.json"
     input_file  = "data/FEDMonitor_2023_09_01_v2.json"
     # load data from json file
     raw_data    = tools.load_data(input_file)
     # print data
+    print("--------------------")
     tools.print_key_depth(raw_data)
+    print("--------------------")
+    print_properties(raw_data)
+    print("--------------------")
     # format data
     cooked_data = format_data(raw_data)
     # get counts
