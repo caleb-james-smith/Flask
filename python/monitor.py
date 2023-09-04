@@ -1,18 +1,12 @@
 # monitor.py
 
-import json
+import tools
 import datetime
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
 # Simple and basic example FED monitoring page.
-
-# load data from input json file
-def load_data(input_file):
-    with open(input_file, "r") as f:
-        data = json.load(f)
-    return data
 
 # format data as a sorted list of dictionaries
 def format_data(input_data):
@@ -51,7 +45,7 @@ def result():
     # input json file with data
     input_file  = "data/fed_data.json"
     # load data from json file
-    raw_data    = load_data(input_file)
+    raw_data    = tools.load_data(input_file)
     # format data
     cooked_data = format_data(raw_data)
     # get counts
