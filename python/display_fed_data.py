@@ -22,6 +22,20 @@ def print_table_list(input_data, my_key):
         this_type   = element["type"]
         print("{0}: {1}".format(this_key, this_type))
 
+# for rows in the table, print a specific keys and values
+def print_table_rows(input_data, my_keys):
+    my_rows = input_data["table"]["rows"]
+    for row in my_rows:
+        message = ""
+        for key in my_keys:
+            value = row[key]
+            # check if message is not empty
+            if message:
+                message += ", {0}: {1}".format(key, value)
+            else:
+                message += "{0}: {1}".format(key, value)
+        print(message)
+
 # format data as a sorted list of dictionaries
 def format_data(input_data):
     output_data = []
@@ -67,6 +81,8 @@ def result():
     print_table_dict(raw_data, "properties")
     print("--------------------")
     print_table_list(raw_data, "definition")
+    print("--------------------")
+    print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
     print("--------------------")
     # format data
     cooked_data = format_data(raw_data)
