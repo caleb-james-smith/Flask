@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+        h1 {
+          font-size: 40px;
+        }
+        
+        h2 {
+          font-size: 30px;
+        }
+        
+        p {
+          font-size: 20px;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Pixel FED Monitoring</h1>
+        
+        <h2>FED Status Summary</h2>
+        
+        <p>FEDs (total): FIXME</p>
+        <ul>
+            <li style="color:#51b73b"><p>FEDs (OK): FIXME</p></li>
+            <li style="color:#fc2647"><p>FEDs (ERROR): FIXME</p></li>
+        </ul>
+        
+        <h2>FED Status Table</h2>
+        
+        <table border = 1 style="background-color:#7d7f7c">
+            <tr>
+                <th>FED</th>
+                <th>Time</th>
+                <th>Happy Counter</th>
+                <th>Sad Counter</th>
+                <th>Middle of the Road Counter</th>
+                <th>Status (with numbers)</th>
+                <th>Status (with words)</th>
+            </tr>
+            {% for fed in fed_data %}
+                {% if fed.status_code == 0 %}
+                    <tr style="background-color:#51b73b">
+                        <td>{{fed.name}}</td>
+                        <td>{{fed.time}}</td>
+                        <td>{{fed.happy_counter}}</td>
+                        <td>{{fed.sad_counter}}</td>
+                        <td>{{fed.middle_of_the_road_counter}}</td>
+                        <td>{{fed.status_code}}</td>
+                        <td>OK</td>
+                    </tr>
+                {% else %}
+                    <tr style="background-color:#fc2647">
+                        <td>{{fed.name}}</td>
+                        <td>{{fed.time}}</td>
+                        <td>{{fed.happy_counter}}</td>
+                        <td>{{fed.sad_counter}}</td>
+                        <td>{{fed.middle_of_the_road_counter}}</td>
+                        <td>{{fed.status_code}}</td>
+                        <td>ERROR</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </body>
+</html>
