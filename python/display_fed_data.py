@@ -86,25 +86,28 @@ def get_counts(input_data, variable):
 def result():
     # input json file with data
     input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+    
     # load data from json file
     raw_data    = tools.load_data(input_file)
+    
     # print data
-    print("--------------------")
-    tools.print_key_depth(raw_data)
-    print("--------------------")
-    print_table_dict(raw_data, "properties")
-    print("--------------------")
-    print_table_list(raw_data, "definition")
-    print("--------------------")
-    print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
-    print("--------------------")
+    #print("--------------------")
+    #tools.print_key_depth(raw_data)
+    #print("--------------------")
+    #print_table_dict(raw_data, "properties")
+    #print("--------------------")
+    #print_table_list(raw_data, "definition")
+    #print("--------------------")
+    #print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
+    #print("--------------------")
+    
     # format data
-    #cooked_data = format_data(raw_data)
+    table_rows = raw_data["table"]["rows"]
+    
     # get counts
     fed_counts = get_counts(raw_data, "EvtErrNumTot")
     
-    #return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=cooked_data)
-    return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=raw_data)
+    return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=table_rows)
 
 if __name__ == '__main__':
     app.run(debug=True)
