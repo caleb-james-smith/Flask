@@ -4,6 +4,14 @@ import tools
 import datetime
 from flask import Flask, render_template
 
+# TODO
+# - Only put FED status logic in python (not html): save as a new variable
+
+# DONE
+# - Get FED status based on multiple variables
+# - Do not inlucde non-FED rows in FED status counts
+# - Do not inlucde non-FED rows html table: remove rows
+
 app = Flask(__name__)
 
 # Display FED data from input json file.
@@ -36,18 +44,17 @@ def print_table_rows(input_data, my_keys):
                 message += "{0}: {1}".format(key, value)
         print(message)
 
-# format data as a sorted list of dictionaries
-def format_data(input_data):
+# process data
+def process_data(input_data):
     output_data = []
-    # sort keys: make sure to use list() so that sort() works!
-    keys = list(input_data.keys())
-    keys.sort()
-    for key in keys:
-        output_data.append(input_data[key])
+    for row in input_data:
+        # only include rows that are pixel FEDs
+        if isPixFED(row):
+            output_data.append(row)
     return output_data
 
-# Check if row is a pixel FED based on the board code.
-# Note: the correct board code is "PIX FED ", including the space at the end.
+# check if row is a pixel FED based on the board code.
+# note: the correct board code is "PIX FED ", including the space at the end.
 def isPixFED(row):
     answer = "PIX FED "
     board_code = row["BoardCode"]
@@ -55,6 +62,7 @@ def isPixFED(row):
         return True
     else:
         return False
+
 # get FED status (0: error, 1: ok) based on variables
 def getFEDStatus(row, variables):
     for variable in variables:
@@ -64,25 +72,21 @@ def getFEDStatus(row, variables):
     return 1
 
 # count number of FEDs in a certain status based on variables
-def get_counts(input_data, variables):
+def get_counts(table_rows, variables):
     counts = {}
     
     n_total = 0
     n_ok    = 0
     n_error = 0
     
-    my_rows = input_data["table"]["rows"]
-    
-    for row in my_rows:
-        # Only include rows that are pixel FEDs
-        if isPixFED(row):
-            n_total += 1
-            # get FED status based on variables
-            status = getFEDStatus(row, variables)
-            if status:
-                n_ok += 1
-            else:
-                n_error += 1
+    for row in table_rows:
+        n_total += 1
+        # get FED status based on variables
+        status = getFEDStatus(row, variables)
+        if status:
+            n_ok += 1
+        else:
+            n_error += 1
 
     counts["n_total"]   = n_total
     counts["n_ok"]      = n_ok
@@ -111,10 +115,10 @@ def result():
     #print("--------------------")
     
     # format data
-    table_rows = raw_data["table"]["rows"]
+    table_rows = process_data(raw_data["table"]["rows"])
     
     # get counts
-    fed_counts = get_counts(raw_data, ["EvtErrNumTot", "RocErrNumTot"])
+    fed_counts = get_counts(table_rows, ["EvtErrNumTot", "RocErrNumTot"])
     
     return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=table_rows)
 
