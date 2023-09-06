@@ -55,9 +55,16 @@ def isPixFED(row):
         return True
     else:
         return False
+# get FED status (0: error, 1: ok) based on variables
+def getFEDStatus(row, variables):
+    for variable in variables:
+        value = row[variable]
+        if value != 0:
+            return 0
+    return 1
 
-# count number of FEDs based on a variable
-def get_counts(input_data, variable):
+# count number of FEDs in a certain status based on variables
+def get_counts(input_data, variables):
     counts = {}
     
     n_total = 0
@@ -70,7 +77,9 @@ def get_counts(input_data, variable):
         # Only include rows that are pixel FEDs
         if isPixFED(row):
             n_total += 1
-            if row[variable] == 0:
+            # get FED status based on variables
+            status = getFEDStatus(row, variables)
+            if status:
                 n_ok += 1
             else:
                 n_error += 1
@@ -105,7 +114,7 @@ def result():
     table_rows = raw_data["table"]["rows"]
     
     # get counts
-    fed_counts = get_counts(raw_data, "EvtErrNumTot")
+    fed_counts = get_counts(raw_data, ["EvtErrNumTot", "RocErrNumTot"])
     
     return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=table_rows)
 
