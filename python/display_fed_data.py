@@ -46,20 +46,34 @@ def format_data(input_data):
         output_data.append(input_data[key])
     return output_data
 
-# count status codes
-def get_counts(input_data):
+# Check if row is a pixel FED based on the board code.
+# Note: the correct board code is "PIX FED ", including the space at the end.
+def isPixFED(row):
+    answer = "PIX FED "
+    board_code = row["BoardCode"]
+    if board_code == answer:
+        return True
+    else:
+        return False
+
+# count number of FEDs based on a variable
+def get_counts(input_data, variable):
     counts = {}
     
     n_total = 0
     n_ok    = 0
     n_error = 0
     
-    for row in input_data:
-        n_total += 1
-        if row["EvtErrNumTot"] == 0:
-            n_ok += 1
-        else:
-            n_error += 1
+    my_rows = input_data["table"]["rows"]
+    
+    for row in my_rows:
+        # Only include rows that are pixel FEDs
+        if isPixFED(row):
+            n_total += 1
+            if row[variable] == 0:
+                n_ok += 1
+            else:
+                n_error += 1
 
     counts["n_total"]   = n_total
     counts["n_ok"]      = n_ok
@@ -85,12 +99,12 @@ def result():
     print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
     print("--------------------")
     # format data
-    cooked_data = format_data(raw_data)
+    #cooked_data = format_data(raw_data)
     # get counts
-    #fed_counts = get_counts(cooked_data)
+    fed_counts = get_counts(raw_data, "EvtErrNumTot")
     
     #return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=cooked_data)
-    return render_template('display_fed_data.html', fed_data=cooked_data)
+    return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=raw_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
