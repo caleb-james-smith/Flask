@@ -6,16 +6,18 @@ from flask import Flask, render_template
 
 # TODO
 # - Only put FED status logic in python (not html): save as a new variable
-# - Right justify entries
-# - Make columns wider
 # - Make colors (gray, green, red, etc.) transparent
-# - Sort by FED number
+# - Freeze header row so that it is always visible
 # - Sort by any column
+# - Sort by FED number
 
 # DONE
 # - Get FED status based on multiple variables
 # - Do not inlucde non-FED rows in FED status counts
 # - Do not inlucde non-FED rows html table: remove rows
+# - Right justify entries in table
+# - Make columns wider in table
+# - Change to a better font
 
 app = Flask(__name__)
 
