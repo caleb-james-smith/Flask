@@ -30,28 +30,34 @@
         
         <table border = 1 style="background-color:#7d7f7c">
             <tr>
-                <th>Time stamp</th>
+                <th>Time</th>
                 <th>FED</th>
+                <th>Status</th>
+                <th>State</th>
+                <th>TTS State</th>
                 <th>EvtErrNumTot</th>
                 <th>RocErrNumTot</th>
-                <th>Status</th>
             </tr>
             {% for fed in fed_data %}
                 {% if fed.EvtErrNumTot == 0 and fed.RocErrNumTot == 0 %}
                     <tr style="background-color:#51b73b">
                         <td>{{fed.timestamp}}</td>
                         <td>{{fed.connectionName}}</td>
+                        <td>OK</td>
+                        <td>{{fed.stateName}}</td>
+                        <td>{{fed.TTSState}}</td>
                         <td>{{fed.EvtErrNumTot}}</td>
                         <td>{{fed.RocErrNumTot}}</td>
-                        <td>OK</td>
                     </tr>
                 {% else %}
                     <tr style="background-color:#fc2647">
                         <td>{{fed.timestamp}}</td>
                         <td>{{fed.connectionName}}</td>
+                        <td>ERROR</td>
+                        <td>{{fed.stateName}}</td>
+                        <td>{{fed.TTSState}}</td>
                         <td>{{fed.EvtErrNumTot}}</td>
                         <td>{{fed.RocErrNumTot}}</td>
-                        <td>ERROR</td>
                     </tr>
                 {% endif %}
             {% endfor %}

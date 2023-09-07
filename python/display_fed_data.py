@@ -6,6 +6,11 @@ from flask import Flask, render_template
 
 # TODO
 # - Only put FED status logic in python (not html): save as a new variable
+# - Right justify entries
+# - Make columns wider
+# - Make colors (gray, green, red, etc.) transparent
+# - Sort by FED number
+# - Sort by any column
 
 # DONE
 # - Get FED status based on multiple variables
