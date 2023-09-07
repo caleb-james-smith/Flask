@@ -5,13 +5,21 @@
             body {
                 font-family: Arial, sans-serif; /* Define the font for the body */
             }
+            .gray-background {
+                background-color: #E5E5E5;
+            }
+            .green-background {
+                background-color: #ACF3A1;
+            }
+            .red-background {
+                background-color: #FF8E8E;
+            }
             h1 {
               font-size: 40px;
             }
             h2 {
               font-size: 30px;
             }
-            
             p {
               font-size: 20px;
             }
@@ -39,7 +47,7 @@
         
         <h2>FED Status Table</h2>
         
-        <table border = 1 style="background-color:#7d7f7c">
+        <table border = 1 class="gray-background">
             <tr>
                 <th>Time</th>
                 <th>FED</th>
@@ -51,7 +59,7 @@
             </tr>
             {% for fed in fed_data %}
                 {% if fed.EvtErrNumTot == 0 and fed.RocErrNumTot == 0 %}
-                    <tr style="background-color:#51b73b">
+                    <tr class="green-background">
                         <td>{{fed.timestamp}}</td>
                         <td>{{fed.connectionName}}</td>
                         <td>OK</td>
@@ -61,7 +69,7 @@
                         <td>{{fed.RocErrNumTot}}</td>
                     </tr>
                 {% else %}
-                    <tr style="background-color:#fc2647">
+                    <tr class="red-background">
                         <td>{{fed.timestamp}}</td>
                         <td>{{fed.connectionName}}</td>
                         <td>ERROR</td>

@@ -5,8 +5,8 @@ import datetime
 from flask import Flask, render_template
 
 # TODO
+# - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
-# - Make colors (gray, green, red, etc.) transparent
 # - Freeze header row so that it is always visible
 # - Sort by any column
 # - Sort by FED number
@@ -18,6 +18,7 @@ from flask import Flask, render_template
 # - Right justify entries in table
 # - Make columns wider in table
 # - Change to a better font
+# - Make background colors (gray, green, red, etc.) transparent
 
 app = Flask(__name__)
 
