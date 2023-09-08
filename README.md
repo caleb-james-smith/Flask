@@ -44,7 +44,26 @@ Run hello.py:
 python python/hello.py
 ```
 
-## Monitoring page
+## FED monitoring page
+
+Open a new terminal tab.
+Then, go to the project directory for this repository and activate the python virtual environment:
+```
+cd <path_to_project>
+source venv/bin/activate
+```
+Run this command to start the server:
+```
+python/display_fed_data.py
+```
+Then load this webpage in a browser:
+http://127.0.0.1:5000/display_fed_data
+
+If everything works, you should see the FED monitoring page!
+Refresh the page and check if the date, time, and data have changed.
+When you are done, you can stop the python script with `Ctrl-c`.
+
+## Example: simple monitoring page
 
 Open two terminals (two terminal windows or tabs).
 In both terminals, go to the project directory for this repository and activate the python virtual environment:
