@@ -54,7 +54,7 @@ source venv/bin/activate
 ```
 Run this command to start the server:
 ```
-python/display_fed_data.py
+python python/display_fed_data.py
 ```
 Then load this webpage in a browser:
 http://127.0.0.1:5000/display_fed_data
