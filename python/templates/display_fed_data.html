@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+    <head>
+        <title>FED Fiesta</title>
+        <link rel="icon" href="{{ url_for('static', filename='red-chili-pepper-v2.ico') }}" type="image/x-icon">
+        <style>
+            body {
+                font-family: Arial, sans-serif; /* Define the font for the body */
+            }
+            h1 {
+              font-size: 40px;
+            }
+            h2 {
+              font-size: 30px;
+            }
+            p {
+              font-size: 20px;
+            }
+            table {
+                width: 100%; /* Expand the table to full width */
+            }
+            th {
+                text-align: center; /* Center-align header cells */
+            }
+            td {
+                text-align: right; /* Right-align data cells */
+            }
+            .gray-background {
+                background-color: #E5E5E5;
+            }
+            .green-background {
+                background-color: #ACF3A1;
+            }
+            .red-background {
+                background-color: #FF8E8E;
+            }
+            #refresh-button-container {
+                text-align: left;
+                padding: 20px;
+            }
+            #refresh-button {
+                padding: 20px 40px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-size: 20px;
+            }
+            #refresh-button:hover {
+                background-color: #0056b3;
+            }
+            #datetime-container {
+                text-align: left;       /* Center-align the content */
+                background-color: #999; /* Background color */
+                color: #fff;            /* Text color */
+                padding: 10px;          /* Add some padding for spacing */
+                max-width: 400px;       /* Set a maximum width for the container */
+            }
+            #current-date, #current-time {
+                font-size: 18px;    /* Adjust font size */
+                margin-right: 10px; /* Add spacing between date and time */
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pixel FED Monitoring</h1>
+
+        <div id="refresh-button-container">
+            <button id="refresh-button">Refresh</button>
+        </div>
+
+        <div id="datetime-container">
+            <span id="current-date"></span>
+            <span id="current-time"></span>
+        </div>
+        
+        <h2>FED Status Summary</h2>
+        
+        <p>FEDs (total): {{fed_counts.n_total}}</p>
+        <ul>
+            <li style="color:#51b73b"><p>FEDs (OK): {{fed_counts.n_ok}}</p></li>
+            <li style="color:#fc2647"><p>FEDs (ERROR): {{fed_counts.n_error}}</p></li>
+        </ul>
+        
+        <h2>FED Status Table</h2>
+        
+        <table border = 1 class="gray-background">
+            <tr>
+                <th>Time</th>
+                <th>FED</th>
+                <th>Status</th>
+                <th>State</th>
+                <th>TTS State</th>
+                <th>EvtErrNumTot</th>
+                <th>RocErrNumTot</th>
+            </tr>
+            {% for fed in fed_data %}
+                {% if fed.EvtErrNumTot == 0 and fed.RocErrNumTot == 0 %}
+                    <tr class="green-background">
+                        <td>{{fed.timestamp}}</td>
+                        <td>{{fed.connectionName}}</td>
+                        <td>OK</td>
+                        <td>{{fed.stateName}}</td>
+                        <td>{{fed.TTSState}}</td>
+                        <td>{{fed.EvtErrNumTot}}</td>
+                        <td>{{fed.RocErrNumTot}}</td>
+                    </tr>
+                {% else %}
+                    <tr class="red-background">
+                        <td>{{fed.timestamp}}</td>
+                        <td>{{fed.connectionName}}</td>
+                        <td>ERROR</td>
+                        <td>{{fed.stateName}}</td>
+                        <td>{{fed.TTSState}}</td>
+                        <td>{{fed.EvtErrNumTot}}</td>
+                        <td>{{fed.RocErrNumTot}}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <script src="{{ url_for('static', filename='refresh-button.js') }}"></script>
+        <script src="{{ url_for('static', filename='current-date-time.js') }}"></script>
+    </body>
+</html>

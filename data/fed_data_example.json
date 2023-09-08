@@ -1,0 +1,162 @@
+{
+    "FED_1000": {
+        "happy_counter": 85, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1000", 
+        "sad_counter": 1, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1001": {
+        "happy_counter": 48, 
+        "middle_of_the_road_counter": 1, 
+        "name": "FED_1001", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1002": {
+        "happy_counter": 8, 
+        "middle_of_the_road_counter": 5, 
+        "name": "FED_1002", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1003": {
+        "happy_counter": 72, 
+        "middle_of_the_road_counter": 0, 
+        "name": "FED_1003", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1004": {
+        "happy_counter": 53, 
+        "middle_of_the_road_counter": 3, 
+        "name": "FED_1004", 
+        "sad_counter": 0, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1005": {
+        "happy_counter": 88, 
+        "middle_of_the_road_counter": 7, 
+        "name": "FED_1005", 
+        "sad_counter": 0, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1006": {
+        "happy_counter": 12, 
+        "middle_of_the_road_counter": 6, 
+        "name": "FED_1006", 
+        "sad_counter": 1, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1007": {
+        "happy_counter": 82, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1007", 
+        "sad_counter": 1, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1008": {
+        "happy_counter": 69, 
+        "middle_of_the_road_counter": 8, 
+        "name": "FED_1008", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1009": {
+        "happy_counter": 31, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1009", 
+        "sad_counter": 0, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1010": {
+        "happy_counter": 33, 
+        "middle_of_the_road_counter": 9, 
+        "name": "FED_1010", 
+        "sad_counter": 1, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1011": {
+        "happy_counter": 20, 
+        "middle_of_the_road_counter": 1, 
+        "name": "FED_1011", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1012": {
+        "happy_counter": 60, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1012", 
+        "sad_counter": 0, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1013": {
+        "happy_counter": 49, 
+        "middle_of_the_road_counter": 6, 
+        "name": "FED_1013", 
+        "sad_counter": 1, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1014": {
+        "happy_counter": 33, 
+        "middle_of_the_road_counter": 5, 
+        "name": "FED_1014", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1015": {
+        "happy_counter": 29, 
+        "middle_of_the_road_counter": 9, 
+        "name": "FED_1015", 
+        "sad_counter": 0, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1016": {
+        "happy_counter": 16, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1016", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1017": {
+        "happy_counter": 87, 
+        "middle_of_the_road_counter": 6, 
+        "name": "FED_1017", 
+        "sad_counter": 1, 
+        "status_code": 1, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1018": {
+        "happy_counter": 52, 
+        "middle_of_the_road_counter": 4, 
+        "name": "FED_1018", 
+        "sad_counter": 1, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }, 
+    "FED_1019": {
+        "happy_counter": 30, 
+        "middle_of_the_road_counter": 9, 
+        "name": "FED_1019", 
+        "sad_counter": 0, 
+        "status_code": 0, 
+        "time": "2023-09-06 13:27:03"
+    }
+}
