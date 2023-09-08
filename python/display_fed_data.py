@@ -10,10 +10,9 @@ from flask import Flask, render_template
 # - Freeze header row so that it is always visible
 # - Sort by any column
 # - Sort by FED number
-# - Add "Refresh" button at the top
+# - Move refresh code to javascript file.
 # - Customize browser tab icon and name: fix issue with icon.
 # - Add date and time at the top: fix issue with javascript.
-# - Move refresh code to javascript file.
 
 # DONE
 # - Get FED status based on multiple variables
@@ -23,6 +22,7 @@ from flask import Flask, render_template
 # - Make columns wider in table
 # - Change to a better font
 # - Make background colors (gray, green, red, etc.) transparent
+# - Add "Refresh" button at the top.
 
 app = Flask(__name__)
 
