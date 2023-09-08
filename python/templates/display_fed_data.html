@@ -50,6 +50,17 @@
 			#refresh-button:hover {
 				background-color: #0056b3;
 			}
+			#datetime-container {
+				text-align: left;		/* Center-align the content */
+				background-color: #999;	/* Background color */
+				color: #fff;			/* Text color */
+				padding: 10px;			/* Add some padding for spacing */
+				max-width: 400px;		/* Set a maximum width for the container */
+			}
+			#current-date, #current-time {
+				font-size: 18px;	/* Adjust font size */
+				margin-right: 10px;	/* Add spacing between date and time */
+			}
         </style>
     </head>
     <body>
@@ -59,8 +70,10 @@
             <button id="refresh-button">Refresh</button>
         </div>
 
-		Time:
-		<span id="current-time"></span>
+		<div id="datetime-container">
+			<span id="current-date"></span>
+			<span id="current-time"></span>
+		</div>
         
         <h2>FED Status Summary</h2>
         
@@ -106,7 +119,7 @@
                 {% endif %}
             {% endfor %}
         </table>
-		<script src="{{ url_for('static', filename='current-time.js') }}"></script>
+		<script src="{{ url_for('static', filename='current-date-time.js') }}"></script>
 		<script>
 			// Get a reference to the "Refresh" button
 			const refreshButton = document.getElementById('refresh-button');
