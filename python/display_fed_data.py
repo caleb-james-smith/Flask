@@ -57,24 +57,17 @@ def print_table_rows(input_data, my_keys):
         print(message)
 
 # process data
-# TODO: remove for loop; replace with one line
 def process_data(input_data):
-    output_data = []
-    for row in input_data:
-        # only include rows that are pixel FEDs
-        if isPixFED(row):
-            output_data.append(row)
+    # only include rows that are pixel FEDs
+    output_data = [row for row in input_data if isPixFED(row)]
     return output_data
 
 # sort data based on variable
-# TODO: remove for loop; replace with one line
 # TODO: add reverse sort option
 # TODO: improve method and fix bug for repeating variables
 def sort_data(input_data, variable):
     output_data = []
-    variable_data = []
-    for row in input_data:
-        variable_data.append(row[variable])
+    variable_data = [row[variable] for row in input_data]
     variable_data.sort()
     print(variable_data)
     for x in variable_data: 
