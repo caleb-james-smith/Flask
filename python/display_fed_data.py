@@ -57,12 +57,31 @@ def print_table_rows(input_data, my_keys):
         print(message)
 
 # process data
+# TODO: remove for loop; replace with one line
 def process_data(input_data):
     output_data = []
     for row in input_data:
         # only include rows that are pixel FEDs
         if isPixFED(row):
             output_data.append(row)
+    return output_data
+
+# sort data based on variable
+# TODO: remove for loop; replace with one line
+# TODO: add reverse sort option
+# TODO: improve method and fix bug for repeating variables
+def sort_data(input_data, variable):
+    output_data = []
+    variable_data = []
+    for row in input_data:
+        variable_data.append(row[variable])
+    variable_data.sort()
+    print(variable_data)
+    for x in variable_data: 
+        for row in input_data:
+            # FIXME: fix for repeating values
+            if row[variable] == x:
+                output_data.append(row)
     return output_data
 
 # check if row is a pixel FED based on the board code.
@@ -128,11 +147,12 @@ def result():
     
     # format data
     table_rows = process_data(raw_data["table"]["rows"])
+    sorted_rows = sort_data(table_rows, "connectionName")
     
     # get counts
     fed_counts = get_counts(table_rows, ["EvtErrNumTot", "RocErrNumTot"])
     
-    return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=table_rows)
+    return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=sorted_rows)
 
 if __name__ == '__main__':
     app.run(debug=True)
