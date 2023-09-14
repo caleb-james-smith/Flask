@@ -8,8 +8,6 @@ from flask import Flask, render_template
 # - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
 # - Freeze header row so that it is always visible
-# - Sort by any column
-# - Sort by FED number
 
 # DONE
 # - Get FED status based on multiple variables
@@ -23,6 +21,8 @@ from flask import Flask, render_template
 # - Add date and time at the top: fix issue with javascript.
 # - Customize browser tab icon and name: fix issue with icon.
 # - Move refresh code to javascript file.
+# - Sort by any column
+# - Sort by FED number
 
 app = Flask(__name__)
 
@@ -64,17 +64,8 @@ def process_data(input_data):
 
 # sort data based on variable
 # TODO: add reverse sort option
-# TODO: improve method and fix bug for repeating variables
 def sort_data(input_data, variable):
-    output_data = []
-    variable_data = [row[variable] for row in input_data]
-    variable_data.sort()
-    print(variable_data)
-    for x in variable_data: 
-        for row in input_data:
-            # FIXME: fix for repeating values
-            if row[variable] == x:
-                output_data.append(row)
+    output_data = sorted(input_data, key=lambda x: x[variable]) 
     return output_data
 
 # check if row is a pixel FED based on the board code.
@@ -140,7 +131,8 @@ def result():
     
     # format data
     table_rows = process_data(raw_data["table"]["rows"])
-    sorted_rows = sort_data(table_rows, "connectionName")
+    #sorted_rows = sort_data(table_rows, "connectionName")
+    sorted_rows = sort_data(table_rows, "EvtErrNumTot")
     
     # get counts
     fed_counts = get_counts(table_rows, ["EvtErrNumTot", "RocErrNumTot"])
