@@ -38,8 +38,15 @@
             .red-background {
                 background-color: #FF8E8E;
             }
+            .row-container {
+                display: flex;          /* Equal height of the children */
+                align-items: center;    /* Vertically center content */
+            }
+            .column-container {
+                border: solid;
+            }
             #refresh-button {
-                padding: 20px 40px;
+                padding: 0px 20px;
                 background-color: #007bff;
                 color: #fff;
                 border: none;
@@ -51,7 +58,9 @@
             }
             #current-date, #current-time {
                 font-size: 20px;    /* Adjust font size */
+                border: none;
                 margin-right: 10px; /* Add spacing between date and time */
+                margin-left: 10px;  /* Add spacing around date and time */
             }
             #header-container {
                 display: flex;
@@ -59,9 +68,10 @@
             }
             #refresh-button-container {
                 text-align: left;
-                padding: 10px;
+                padding: 0px;
                 margin-right: 10px;     /* Add spacing between elements */
                 height: 50px;           /* Set the fixed height */
+                border: solid;
             }
             #datetime-container {
                 background-color: #999; /* Background color */
@@ -71,17 +81,18 @@
                 padding: 10px;          /* Add some padding for spacing */
                 margin-right: 10px;     /* Add spacing between elements */
                 height: 50px;           /* Set the fixed height */
+                border: solid;
             }
         </style>
     </head>
     <body>
         <h1>Pixel FED Monitoring</h1>
 
-        <div id="header-container">
-            <div id="refresh-button-container">
+        <div class="row-container">
+            <div class="column-container">
                 <button id="refresh-button">Refresh</button>
             </div>
-            <div id="datetime-container">
+            <div class="column-container">
                 <span id="current-date"></span>
                 <span id="current-time"></span>
             </div>
