@@ -8,7 +8,6 @@ from flask import Flask, render_template
 # - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
 # - Sort by any column (specified by user) 
-# - Make Refresh button smaller; move to same row as date and time.
 
 # DONE
 # - Get FED status based on multiple variables
@@ -25,6 +24,7 @@ from flask import Flask, render_template
 # - Sort by any column (hardcoded)
 # - Sort by FED number
 # - Freeze header row so that it is always visible
+# - Make Refresh button smaller; move to same row as date and time.
 
 app = Flask(__name__)
 
