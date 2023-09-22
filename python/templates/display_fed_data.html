@@ -38,44 +38,43 @@
             .red-background {
                 background-color: #FF8E8E;
             }
-            #refresh-button-container {
-                text-align: left;
-                padding: 20px;
+            .row-container {
+                display: flex;          /* Equal height of the children */
+                align-items: center;    /* Vertically center content */
+            }
+            .column-container {
+                border: solid;
             }
             #refresh-button {
-                padding: 20px 40px;
+                font-size: 20px;    /* Adjust font size */
+                border: none;
+                padding: 0px 20px;
                 background-color: #007bff;
                 color: #fff;
-                border: none;
                 cursor: pointer;
-                font-size: 20px;
             }
             #refresh-button:hover {
                 background-color: #0056b3;
             }
-            #datetime-container {
-                text-align: left;       /* Center-align the content */
-                background-color: #999; /* Background color */
-                color: #fff;            /* Text color */
-                padding: 10px;          /* Add some padding for spacing */
-                max-width: 400px;       /* Set a maximum width for the container */
-            }
             #current-date, #current-time {
-                font-size: 18px;    /* Adjust font size */
+                font-size: 20px;    /* Adjust font size */
+                border: none;
                 margin-right: 10px; /* Add spacing between date and time */
+                margin-left: 10px;  /* Add spacing around date and time */
             }
         </style>
     </head>
     <body>
         <h1>Pixel FED Monitoring</h1>
 
-        <div id="refresh-button-container">
-            <button id="refresh-button">Refresh</button>
-        </div>
-
-        <div id="datetime-container">
-            <span id="current-date"></span>
-            <span id="current-time"></span>
+        <div class="row-container">
+            <div class="column-container">
+                <button id="refresh-button">Refresh</button>
+            </div>
+            <div class="column-container">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
         </div>
         
         <h2>FED Status Summary</h2>
