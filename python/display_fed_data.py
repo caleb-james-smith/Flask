@@ -7,7 +7,6 @@ from flask import Flask, render_template
 # TODO
 # - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
-# - Freeze header row so that it is always visible
 
 # DONE
 # - Get FED status based on multiple variables
@@ -23,6 +22,7 @@ from flask import Flask, render_template
 # - Move refresh code to javascript file.
 # - Sort by any column
 # - Sort by FED number
+# - Freeze header row so that it is always visible
 
 app = Flask(__name__)
 
@@ -131,8 +131,11 @@ def result():
     
     # format data
     table_rows = process_data(raw_data["table"]["rows"])
-    #sorted_rows = sort_data(table_rows, "connectionName")
-    sorted_rows = sort_data(table_rows, "EvtErrNumTot")
+    
+    # sort data
+    sorted_rows = sort_data(table_rows, "connectionName")
+    #sorted_rows = sort_data(table_rows, "EvtErrNumTot")
+    #sorted_rows = sort_data(table_rows, "RocErrNumTot")
     
     # get counts
     fed_counts = get_counts(table_rows, ["EvtErrNumTot", "RocErrNumTot"])
