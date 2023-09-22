@@ -38,10 +38,6 @@
             .red-background {
                 background-color: #FF8E8E;
             }
-            #refresh-button-container {
-                text-align: left;
-                padding: 20px;
-            }
             #refresh-button {
                 padding: 20px 40px;
                 background-color: #007bff;
@@ -53,29 +49,42 @@
             #refresh-button:hover {
                 background-color: #0056b3;
             }
+            #current-date, #current-time {
+                font-size: 20px;    /* Adjust font size */
+                margin-right: 10px; /* Add spacing between date and time */
+            }
+            #header-container {
+                display: flex;
+                align-items: center; /* Vertically center content */
+            }
+            #refresh-button-container {
+                text-align: left;
+                padding: 10px;
+                margin-right: 10px;     /* Add spacing between elements */
+                height: 50px;           /* Set the fixed height */
+            }
             #datetime-container {
-                text-align: left;       /* Center-align the content */
                 background-color: #999; /* Background color */
                 color: #fff;            /* Text color */
-                padding: 10px;          /* Add some padding for spacing */
+                text-align: left;       /* Center-align the content */
                 max-width: 400px;       /* Set a maximum width for the container */
-            }
-            #current-date, #current-time {
-                font-size: 18px;    /* Adjust font size */
-                margin-right: 10px; /* Add spacing between date and time */
+                padding: 10px;          /* Add some padding for spacing */
+                margin-right: 10px;     /* Add spacing between elements */
+                height: 50px;           /* Set the fixed height */
             }
         </style>
     </head>
     <body>
         <h1>Pixel FED Monitoring</h1>
 
-        <div id="refresh-button-container">
-            <button id="refresh-button">Refresh</button>
-        </div>
-
-        <div id="datetime-container">
-            <span id="current-date"></span>
-            <span id="current-time"></span>
+        <div id="header-container">
+            <div id="refresh-button-container">
+                <button id="refresh-button">Refresh</button>
+            </div>
+            <div id="datetime-container">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
         </div>
         
         <h2>FED Status Summary</h2>
