@@ -81,13 +81,15 @@
         
         <p>FEDs (total): {{fed_counts.n_total}}</p>
         <ul>
+            <li><p>FEDs (Running): {{fed_counts.n_running}}</p></li>
+            <li><p>FEDs (Ready): {{fed_counts.n_ready}}</p></li>
             <li style="color:#51b73b"><p>FEDs (OK): {{fed_counts.n_ok}}</p></li>
             <li style="color:#fc2647"><p>FEDs (ERROR): {{fed_counts.n_error}}</p></li>
         </ul>
         
         <h2>FED Status Table</h2>
         
-        <table border = 1 class="gray-background">
+        <table border = 1 class="gray-background sortable">
             <tr>
                 <th>Time</th>
                 <th>FED</th>
@@ -123,5 +125,6 @@
         </table>
         <script src="{{ url_for('static', filename='refresh-button.js') }}"></script>
         <script src="{{ url_for('static', filename='current-date-time.js') }}"></script>
+        <script src="{{ url_for('static', filename='sorttable.js') }}"></script>
     </body>
 </html>

@@ -7,12 +7,11 @@ from flask import Flask, render_template
 # TODO
 # - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
-# - Sort by any column (specified by user) 
 
 # DONE
 # - Get FED status based on multiple variables
-# - Do not inlucde non-FED rows in FED status counts
-# - Do not inlucde non-FED rows html table: remove rows
+# - Do not include non-FED rows in FED status counts
+# - Do not include non-FED rows html table: remove rows
 # - Right justify entries in table
 # - Make columns wider in table
 # - Change to a better font
@@ -25,6 +24,7 @@ from flask import Flask, render_template
 # - Sort by FED number
 # - Freeze header row so that it is always visible
 # - Make Refresh button smaller; move to same row as date and time.
+# - Sort by any column (specified by user) 
 
 app = Flask(__name__)
 
@@ -92,12 +92,19 @@ def getFEDStatus(row, variables):
 def get_counts(table_rows, variables):
     counts = {}
     
-    n_total = 0
-    n_ok    = 0
-    n_error = 0
+    n_total     = 0
+    n_running   = 0
+    n_ready     = 0
+    n_ok        = 0
+    n_error     = 0
     
     for row in table_rows:
         n_total += 1
+        # count FEDs in various states
+        if row["stateName"] == "Running":
+            n_running += 1
+        if row["TTSState"] == "RDY":
+            n_ready += 1
         # get FED status based on variables
         status = getFEDStatus(row, variables)
         if status:
@@ -106,6 +113,8 @@ def get_counts(table_rows, variables):
             n_error += 1
 
     counts["n_total"]   = n_total
+    counts["n_running"] = n_running
+    counts["n_ready"]   = n_ready
     counts["n_ok"]      = n_ok
     counts["n_error"]   = n_error
     
@@ -134,7 +143,7 @@ def result():
     # format data
     table_rows = process_data(raw_data["table"]["rows"])
     
-    # sort data
+    # sort data: default sorting when page first loads
     sorted_rows = sort_data(table_rows, "connectionName")
     #sorted_rows = sort_data(table_rows, "EvtErrNumTot")
     #sorted_rows = sort_data(table_rows, "RocErrNumTot")
