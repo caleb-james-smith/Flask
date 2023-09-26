@@ -124,7 +124,8 @@ def get_counts(table_rows, variables):
 @app.route('/display_fed_data')
 def result():
     # input json file with data
-    input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+    #input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+    input_file  = "data/FEDMonitor_2023_09_26_v1_pretty.json"
     
     # load data from json file
     raw_data    = tools.load_data(input_file)
