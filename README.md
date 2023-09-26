@@ -44,23 +44,46 @@ Run hello.py:
 ```
 python python/hello.py
 ```
+Then load this webpage in a browser:
+http://127.0.0.1:5000/
+
+If everything is working, you should see a simple webpage.
 
 ## FED monitoring page
 
-Open a new terminal tab.
-Then, go to the project directory for this repository and activate the python virtual environment:
+Fist, you need to start and ssh tunnel with port forwarding to access websites at CMS P5.
+Choose a port number greater than 1000 to use for the ssh tunnel.
+In this example, we use port 1234; you should pick your own port number.
+In a new terminal tab, start your ssh tunnel with this command (edit for your username and port number):
+```
+ssh -tt -Y <user>@lxplus.cern.ch -L1234:localhost:1234 "ssh -tt -Y -D 1234 <user>@cmsusr -4"
+```
+
+Then, open a new terminal tab.
+Go to the project directory for this repository and activate the python virtual environment:
 ```
 cd <path_to_project>
 source venv/bin/activate
 ```
+
+In display_fed_data.py, in the result() function, you will need to edit the "proxies" dictionary to use your port number:
+```
+proxies = {
+    "http" : "socks5h://127.0.0.1:1234",
+    "https": "socks5h://127.0.0.1:1234"
+}
+```
+
 Run this command to start the server:
 ```
 python python/display_fed_data.py
 ```
+
 Then load this webpage in a browser:
 http://127.0.0.1:5000/display_fed_data
 
 If everything works, you should see the FED monitoring page!
+If you see an error page and error messages, make sure that you have an ssh tunnel running with the correct port number.
 Refresh the page and check if the date, time, and data have changed.
 When you are done, you can stop the python script with `Ctrl-c`.
 
