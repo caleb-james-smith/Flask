@@ -2,17 +2,16 @@
 
 import tools
 import datetime
+import requests
 from flask import Flask, render_template
 
 # TODO
-# - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
-# - Sort by any column (specified by user) 
 
 # DONE
 # - Get FED status based on multiple variables
-# - Do not inlucde non-FED rows in FED status counts
-# - Do not inlucde non-FED rows html table: remove rows
+# - Do not include non-FED rows in FED status counts
+# - Do not include non-FED rows html table: remove rows
 # - Right justify entries in table
 # - Make columns wider in table
 # - Change to a better font
@@ -25,6 +24,9 @@ from flask import Flask, render_template
 # - Sort by FED number
 # - Freeze header row so that it is always visible
 # - Make Refresh button smaller; move to same row as date and time.
+# - Sort by any column (specified by user) 
+# - Do not include high-rate FEDs
+# - Load live FED data in json format using requests library
 
 app = Flask(__name__)
 
@@ -60,8 +62,8 @@ def print_table_rows(input_data, my_keys):
 
 # process data
 def process_data(input_data):
-    # only include rows that are pixel FEDs
-    output_data = [row for row in input_data if isPixFED(row)]
+    # only include rows that are pixel FEDs that we want to keep
+    output_data = [row for row in input_data if isPixFED(row) and keepPixFED(row)]
     return output_data
 
 # sort data based on variable
@@ -80,6 +82,20 @@ def isPixFED(row):
     else:
         return False
 
+# determine which FEDs to keep: do not keep high-rate FEDs
+def keepPixFED(row):
+    highrate_cutoff = 1400
+    # check that connectionName is filled (not empty)
+    if row["connectionName"]:
+        fed_number = int(row["connectionName"])
+        # do not keep high-rate FEDs
+        if fed_number >= highrate_cutoff:
+            return False
+        else:
+            return True
+    else:
+        return False
+
 # get FED status (0: error, 1: ok) based on variables
 def getFEDStatus(row, variables):
     for variable in variables:
@@ -92,12 +108,19 @@ def getFEDStatus(row, variables):
 def get_counts(table_rows, variables):
     counts = {}
     
-    n_total = 0
-    n_ok    = 0
-    n_error = 0
+    n_total     = 0
+    n_running   = 0
+    n_ready     = 0
+    n_ok        = 0
+    n_error     = 0
     
     for row in table_rows:
         n_total += 1
+        # count FEDs in various states
+        if row["stateName"] == "Running":
+            n_running += 1
+        if row["TTSState"] == "RDY":
+            n_ready += 1
         # get FED status based on variables
         status = getFEDStatus(row, variables)
         if status:
@@ -106,19 +129,51 @@ def get_counts(table_rows, variables):
             n_error += 1
 
     counts["n_total"]   = n_total
+    counts["n_running"] = n_running
+    counts["n_ready"]   = n_ready
     counts["n_ok"]      = n_ok
     counts["n_error"]   = n_error
     
     return counts
 
+# get data from collection point
+def getData(url, proxies):
+    try:
+        page = requests.get(url, proxies=proxies)
+        return page.json()
+    except:
+        print("ERROR:")
+        print("    Failed to get data from '{0}'".format(url))
+        print("    using these proxies: {0}.".format(proxies))
+        print("Make sure that you are running an ssh tunnel with port forwarding using the correct ports to access this site.")
+        return None
+
 # use html template with conditional statements and loops
 @app.route('/display_fed_data')
 def result():
-    # input json file with data
-    input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+    raw_data = None
+    use_local_json = False
     
-    # load data from json file
-    raw_data    = tools.load_data(input_file)
+    # FEDMonitor data from collection point in json format
+    url = "http://kvm-s3562-3-ip157-27.cms:9945/urn:xdaq-application:lid=16/retrieveCollection?fmt=json&flash=urn:xdaq-flashlist:FEDMonitor"
+    
+    # proxies for CMS P5
+    proxies = {
+        "http" : "socks5h://127.0.0.1:1030",
+        "https": "socks5h://127.0.0.1:1030"
+    }    
+    
+    if use_local_json:
+        # input json file with data
+        #input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+        input_file  = "data/FEDMonitor_2023_09_26_v1_pretty.json"
+        
+        # load data from json file
+        raw_data    = tools.load_data(input_file)
+    else:
+        raw_data = getData(url, proxies)
+        #print("raw_data type: {0}".format(type(raw_data)))
+        #print("raw_data: {0}".format(raw_data))
     
     # print data
     #print("--------------------")
@@ -131,10 +186,14 @@ def result():
     #print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
     #print("--------------------")
     
+    if not raw_data:
+        print("ERROR: Did not load data!")
+        return render_template('data_error.html')
+    
     # format data
     table_rows = process_data(raw_data["table"]["rows"])
     
-    # sort data
+    # sort data: default sorting when page first loads
     sorted_rows = sort_data(table_rows, "connectionName")
     #sorted_rows = sort_data(table_rows, "EvtErrNumTot")
     #sorted_rows = sort_data(table_rows, "RocErrNumTot")
