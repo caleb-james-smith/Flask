@@ -2,10 +2,10 @@
 
 import tools
 import datetime
+import requests
 from flask import Flask, render_template
 
 # TODO
-# - Load live FED data in json format using requests library
 # - Only put FED status logic in python (not html): save as a new variable
 
 # DONE
@@ -26,6 +26,7 @@ from flask import Flask, render_template
 # - Make Refresh button smaller; move to same row as date and time.
 # - Sort by any column (specified by user) 
 # - Do not include high-rate FEDs
+# - Load live FED data in json format using requests library
 
 app = Flask(__name__)
 
@@ -135,15 +136,44 @@ def get_counts(table_rows, variables):
     
     return counts
 
+# get data from collection point
+def getData(url, proxies):
+    try:
+        page = requests.get(url, proxies=proxies)
+        return page.json()
+    except:
+        print("ERROR:")
+        print("    Failed to get data from '{0}'".format(url))
+        print("    using these proxies: {0}.".format(proxies))
+        print("Make sure that you are running an ssh tunnel with port forwarding using the correct ports to access this site.")
+        return None
+
 # use html template with conditional statements and loops
 @app.route('/display_fed_data')
 def result():
-    # input json file with data
-    #input_file  = "data/FEDMonitor_2023_09_01_v2.json"
-    input_file  = "data/FEDMonitor_2023_09_26_v1_pretty.json"
+    raw_data = None
+    use_local_json = False
     
-    # load data from json file
-    raw_data    = tools.load_data(input_file)
+    # FEDMonitor data from collection point in json format
+    url = "http://kvm-s3562-3-ip157-27.cms:9945/urn:xdaq-application:lid=16/retrieveCollection?fmt=json&flash=urn:xdaq-flashlist:FEDMonitor"
+    
+    # proxies for CMS P5
+    proxies = {
+        "http" : "socks5h://127.0.0.1:1030",
+        "https": "socks5h://127.0.0.1:1030"
+    }    
+    
+    if use_local_json:
+        # input json file with data
+        #input_file  = "data/FEDMonitor_2023_09_01_v2.json"
+        input_file  = "data/FEDMonitor_2023_09_26_v1_pretty.json"
+        
+        # load data from json file
+        raw_data    = tools.load_data(input_file)
+    else:
+        raw_data = getData(url, proxies)
+        #print("raw_data type: {0}".format(type(raw_data)))
+        #print("raw_data: {0}".format(raw_data))
     
     # print data
     #print("--------------------")
@@ -155,6 +185,10 @@ def result():
     #print("--------------------")
     #print_table_rows(raw_data, ["connectionName", "EvtErrNumTot", "RocErrNumTot"])
     #print("--------------------")
+    
+    if not raw_data:
+        print("ERROR: Did not load data!")
+        return render_template('data_error.html')
     
     # format data
     table_rows = process_data(raw_data["table"]["rows"])

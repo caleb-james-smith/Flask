@@ -32,11 +32,12 @@ To deactivate a virtual environment:
 deactivate
 ```
 
-Install Flask in the virtual environment:
-
+Install these packages in the virtual environment:
 ```
 source venv/bin/activate
-pip install Flask
+pip install flask
+pip install requests
+pip install pysocks
 ```
 
 Run hello.py:
