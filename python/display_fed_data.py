@@ -25,6 +25,7 @@ from flask import Flask, render_template
 # - Freeze header row so that it is always visible
 # - Make Refresh button smaller; move to same row as date and time.
 # - Sort by any column (specified by user) 
+# - Do not include high-rate FEDs
 
 app = Flask(__name__)
 
@@ -60,8 +61,8 @@ def print_table_rows(input_data, my_keys):
 
 # process data
 def process_data(input_data):
-    # only include rows that are pixel FEDs
-    output_data = [row for row in input_data if isPixFED(row)]
+    # only include rows that are pixel FEDs that we want to keep
+    output_data = [row for row in input_data if isPixFED(row) and keepPixFED(row)]
     return output_data
 
 # sort data based on variable
@@ -77,6 +78,20 @@ def isPixFED(row):
     board_code = row["BoardCode"]
     if board_code == answer:
         return True
+    else:
+        return False
+
+# determine which FEDs to keep: do not keep high-rate FEDs
+def keepPixFED(row):
+    highrate_cutoff = 1400
+    # check that connectionName is filled (not empty)
+    if row["connectionName"]:
+        fed_number = int(row["connectionName"])
+        # do not keep high-rate FEDs
+        if fed_number >= highrate_cutoff:
+            return False
+        else:
+            return True
     else:
         return False
 
