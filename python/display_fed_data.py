@@ -66,10 +66,9 @@ def process_data(input_data):
     output_data = [row for row in input_data if isPixFED(row) and keepPixFED(row)]
     return output_data
 
-# sort data based on variable
-# TODO: add reverse sort option
-def sort_data(input_data, variable):
-    output_data = sorted(input_data, key=lambda x: x[variable]) 
+# sort data based on variable, reverse sorting also supported
+def sort_data(input_data, variable, reverse=False):
+    output_data = sorted(input_data, key=lambda x: x[variable], reverse=reverse)
     return output_data
 
 # check if row is a pixel FED based on the board code.
@@ -85,7 +84,7 @@ def isPixFED(row):
 # determine which FEDs to keep: do not keep high-rate FEDs
 def keepPixFED(row):
     highrate_cutoff = 1400
-    # check that connectionName is filled (not empty)
+    # check that connectionName is filled (not empty) before converting to int
     if row["connectionName"]:
         fed_number = int(row["connectionName"])
         # do not keep high-rate FEDs
@@ -195,6 +194,7 @@ def result():
     
     # sort data: default sorting when page first loads
     sorted_rows = sort_data(table_rows, "connectionName")
+    #sorted_rows = sort_data(table_rows, "connectionName", True)
     #sorted_rows = sort_data(table_rows, "EvtErrNumTot")
     #sorted_rows = sort_data(table_rows, "RocErrNumTot")
     
