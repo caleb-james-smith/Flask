@@ -73,8 +73,8 @@ def sort_data(input_data, variable):
     return output_data
 
 # check if row is a pixel FED based on the board code.
-# note: the correct board code is "PIX FED ", including the space at the end.
 def isPixFED(row):
+    # note: the correct board code is "PIX FED ", including the space at the end
     answer = "PIX FED "
     board_code = row["BoardCode"]
     if board_code == answer:
@@ -204,5 +204,5 @@ def result():
     return render_template('display_fed_data.html', fed_counts=fed_counts, fed_data=sorted_rows)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=4000, debug=True)
 
